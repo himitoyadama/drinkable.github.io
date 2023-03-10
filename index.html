@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>お酒が飲めるかどうか</title>
+    <style>
+      body {
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 80px;
+        padding: 0;
+      }
+      
+      form {
+        margin-bottom: 20px;
+      }
+      
+      button {
+        display: block;
+        margin: 0 auto;
+      }
+      
+      @media (min-width: 768px) {
+        body {
+          font-size: 40px;
+        }
+      }
+      input[type="date"] {
+        width: 100%;
+        font-size: 1.5em;
+        padding: 10px;
+        border: 5px solid #ccc;
+      }
+      
+          </style>
+  </head>
+  <body>
+    <form>
+      <label for="year">年:</label>
+      <input type="number" id="year" name="year" min="1900" max="2023">
+      <label for="month">月:</label>
+      <input type="number" id="month" name="month" min="1" max="12">
+      <label for="day">日:</label>
+      <input type="number" id="day" name="day" min="1" max="31">
+      <button type="button" onclick="checkAge()">判定</button>
+    </form>
+    <p id="result"></p>
+    <a href="#" id="next-page-link">西暦変換へ</a>
+    <script>
+      function checkAge() {
+        // 生年月日を取得
+        const year = parseInt(document.getElementById("year").value);
+        const month = parseInt(document.getElementById("month").value) - 1; // 0-11の範囲で指定するため、1を引く
+        const day = parseInt(document.getElementById("day").value);
+        const birthday = new Date(year, month, day);
+        // お酒が飲める年齢を計算
+        const legalAge = 20;
+        const drinkingAge = new Date(birthday.getFullYear() + legalAge, birthday.getMonth(), birthday.getDate());
+        // 現在の日付を取得
+        const today = new Date();
+        // 判定
+        if (today < drinkingAge) {
+          document.getElementById("result").textContent = "お酒はまだ飲めません。";
+        } else {
+          document.getElementById("result").textContent = "お酒が飲めます！";
+        }
+      }
+      const nextPageLink = document.getElementById('next-page-link');
+nextPageLink.addEventListener('click', function(event) {
+  event.preventDefault(); // リンクのデフォルトの挙動をキャンセル
+  window.location.href = 'https://himitoyadama.github.io/nengo-change.github.io/'; // 次のページのURLにリダイレクト
+});
+    </script>
+  </body>
+</html>
